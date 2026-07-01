@@ -10,7 +10,7 @@ export const profile = {
   resumeUrl: "#",
   // Replace this URL with a direct link to your own photo.
   // Recommended: a square image at least 400×400 px.
-  profileImage: "public/profile/akeh.jpg",
+  profileImage: "/profile/akeh.jpg",
   socials: {
     github: "https://github.com/Maskirade",
     linkedin: "https://linkedin.com",
@@ -150,47 +150,47 @@ export const galleryCategories = ["All", "Grad Pic", "AREA 51", "OJT"];
 
 export const galleryImages = [
   {
-    src: "public/snapshots/akeh.jpg",
+    src: "/snapshots/akeh.jpg",
     caption: "Graduation pic",
     category: "Grad Pic",
   },
   {
-    src: "public/snapshots/dacun5.jpg",
+    src: "/snapshots/dacun5.jpg",
     caption: "17th DACUN Phil-BIST",
     category: "AREA 51",
   },
   {
-    src: "public/snapshots/dacun.jpg",
+    src: "/snapshots/dacun.jpg",
     caption: "17th DACUN Phil-BIST",
     category: "AREA 51",
   },
   {
-    src: "public/snapshots/dacun2.jpg",
+    src: "/snapshots/dacun2.jpg",
     caption: "17th DACUN Phil-BIST",
     category: "AREA 51",
   },
   {
-    src: "public/snapshots/programmer.jpg",
+    src: "/snapshots/programmer.jpg",
     caption: "OJT time as a programmer",
     category: "OJT",
   },
   {
-    src: "public/snapshots/visit.jpg",
+    src: "/snapshots/visit.jpg",
     caption: "AREA 51 senior developers along with the CEO and OJT's",
     category: "OJT",
   },
   {
-    src: "public/snapshots/visit2.jpg",
+    src: "/snapshots/visit2.jpg",
     caption: "OJT-Visit clients to witness our company CEO communication skills",
     category: "OJT",
   },
   {
-    src: "public/snapshots/dacun3.jpg",
+    src: "/snapshots/dacun3.jpg",
     caption: "17th DACUN Phil-BIST",
     category: "AREA 51",
   },
   {
-    src: "public/snapshots/dacun4.jpg",
+    src: "/snapshots/dacun4.jpg",
     caption: "17th DACUN Phil-BIST",
     category: "AREA 51",
   },
@@ -203,7 +203,7 @@ export const projects = [
       "A gamified mock reviewer for civil service examination integrated with free spaced repetition scheduler (FSRS).",
     tags: ["Flutter", "Dart", "ObjectBox"],
     image:
-      "public/projects/civicprep.png",
+      "/projects/civicprep.png",
     liveUrl: "#",
     codeUrl: "#",
   },
@@ -213,7 +213,7 @@ export const projects = [
       "A library attendance system with barcode scanner for seamless attendance in and out. The system also integrated with ID generator for quick ID creation.",
     tags: ["PHP", "Tailwind CSS", "JavaScript"],
     image:
-      "public/projects/library_attendance_system.png",
+      "/projects/library_attendance_system.png",
     liveUrl: "#",
     codeUrl: "#",
   },
