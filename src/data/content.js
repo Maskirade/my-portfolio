@@ -13,7 +13,7 @@ export const profile = {
   profileImage: "/profile/akeh.jpg",
   socials: {
     github: "https://github.com/Maskirade",
-    linkedin: "https://linkedin.com",
+    linkedin: "https://www.linkedin.com/in/john-raymart-tenio-733037315/",
     instagram: "https://www.instagram.com/akehhhhhh/",
     facebook: "https://www.facebook.com/johnraymart.tenio.73",
   },
