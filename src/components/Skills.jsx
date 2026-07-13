@@ -98,7 +98,7 @@ export default function Skills() {
       <div className="section">
         <p className="eyebrow mb-3">Skills</p>
         <h2 className="font-display mb-14 text-3xl font-bold sm:text-4xl">
-          Technologies I work with.
+          Tech Stack
         </h2>
 
         <div className="flex flex-col gap-12">
