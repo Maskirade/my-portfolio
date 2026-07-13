@@ -2,7 +2,7 @@
 
 export const profile = {
   name: "John Raymart Tenio",
-  role: "Full-Stack Developer",
+  role: ["Web Developer", "Mobile App Developer", "AI/ML Developer"],
   tagline:
     "I design and build fast, accessible web products — from database schema to the last pixel.",
   location: "San Jose, Prosperidad Agusan del Sur, Philippines",

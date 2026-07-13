@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Instagram, Facebook } from "lucide-react";
 import { profile } from "../data/content.js";
@@ -24,7 +25,6 @@ const photoVariants = {
 };
 
 // ─── Social icon config ──────────────────────────────────────────────────────
-// Each entry carries the Lucide icon, a readable label, and a brand hover class
 const socialConfig = {
   github: {
     Icon: Github,
@@ -48,8 +48,63 @@ const socialConfig = {
   },
 };
 
+// ─── Typing animation hook ───────────────────────────────────────────────────
+function useTypingEffect(roles, typingSpeed = 80, deletingSpeed = 45, pauseMs = 1800) {
+  const [displayed, setDisplayed]   = useState("");
+  const [roleIndex, setRoleIndex]   = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isPausing, setIsPausing]   = useState(false);
+
+  useEffect(() => {
+    const currentRole = roles[roleIndex % roles.length];
+
+    if (isPausing) {
+      const id = setTimeout(() => setIsPausing(false), pauseMs);
+      return () => clearTimeout(id);
+    }
+
+    if (!isDeleting) {
+      if (displayed.length < currentRole.length) {
+        const id = setTimeout(
+          () => setDisplayed(currentRole.slice(0, displayed.length + 1)),
+          typingSpeed
+        );
+        return () => clearTimeout(id);
+      }
+      setIsPausing(true);
+      setIsDeleting(true);
+    } else {
+      if (displayed.length > 0) {
+        const id = setTimeout(
+          () => setDisplayed(currentRole.slice(0, displayed.length - 1)),
+          deletingSpeed
+        );
+        return () => clearTimeout(id);
+      }
+      setIsDeleting(false);
+      setRoleIndex((i) => (i + 1) % roles.length);
+    }
+  }, [displayed, isDeleting, isPausing, roleIndex, roles, typingSpeed, deletingSpeed, pauseMs]);
+
+  return displayed;
+}
+
+// ─── Blinking cursor ─────────────────────────────────────────────────────────
+function Cursor() {
+  return (
+    <motion.span
+      animate={{ opacity: [1, 0, 1] }}
+      transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+      className="ml-[2px] inline-block h-[1em] w-[3px] translate-y-[2px] rounded-sm bg-primary align-middle"
+      aria-hidden="true"
+    />
+  );
+}
+
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function Hero() {
+  const typedRole = useTypingEffect(profile.roles ?? ["Full-Stack Software Engineer"]);
+
   return (
     <section
       id="hero"
@@ -75,12 +130,27 @@ export default function Hero() {
 
           <motion.h1
             variants={itemVariants}
-            className="font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-6xl lg:text-7xl"
+            className="font-display text-4xl font-bold leading-[1.15] tracking-tight sm:text-6xl lg:text-7xl"
           >
-            Hi, I'm {profile.name}.
-            <br />
-            <span className="text-primary">{profile.role}.</span>
+            {"Hi, I'm "}{profile.name}.
           </motion.h1>
+
+          {/* Terminal typing role line */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-3 flex items-center gap-2 sm:mt-4"
+          >
+            <span
+              aria-hidden="true"
+              className="select-none font-mono text-xl font-bold text-primary/60 sm:text-3xl lg:text-4xl"
+            >
+              {'> _'}
+            </span>
+            <span className="font-display text-xl font-bold text-primary sm:text-3xl lg:text-4xl">
+              {typedRole}
+              <Cursor />
+            </span>
+          </motion.div>
 
           <motion.p
             variants={itemVariants}
@@ -128,7 +198,6 @@ export default function Hero() {
                   className={`group relative flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-ink/15 text-ink/60 transition-all duration-200 dark:border-paper/20 dark:text-paper/60 ${hoverClass}`}
                 >
                   <Icon size={18} />
-                  {/* Tooltip label */}
                   <span className="pointer-events-none absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-ink px-2 py-0.5 text-[10px] font-medium text-paper opacity-0 transition-opacity duration-150 group-hover:opacity-100 dark:bg-paper dark:text-ink">
                     {label}
                   </span>
@@ -146,18 +215,16 @@ export default function Hero() {
           className="flex justify-center lg:justify-end"
         >
           <div className="relative">
-            {/* Outer decorative ring — spins slowly */}
+            {/* Outer decorative ring */}
             <div
               aria-hidden="true"
               className="absolute inset-0 -m-3 animate-[spin_18s_linear_infinite] rounded-full border-2 border-dashed border-primary/30"
             />
-
             {/* Glowing halo */}
             <div
               aria-hidden="true"
               className="absolute inset-0 rounded-full bg-primary/20 blur-2xl"
             />
-
             {/* Photo frame */}
             <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-primary/60 shadow-2xl shadow-primary/20 sm:h-80 sm:w-80">
               <img
@@ -165,10 +232,8 @@ export default function Hero() {
                 alt={`Profile photo of ${profile.name}`}
                 className="h-full w-full object-cover object-center"
               />
-              {/* Subtle inner overlay for depth */}
               <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10" />
             </div>
-
             {/* Floating status badge */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -186,6 +251,7 @@ export default function Hero() {
             </motion.div>
           </div>
         </motion.div>
+
       </div>
 
       {/* Scroll-down indicator */}
