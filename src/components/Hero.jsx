@@ -144,7 +144,6 @@ export default function Hero() {
               aria-hidden="true"
               className="select-none font-mono text-xl font-bold text-primary/60 sm:text-3xl lg:text-4xl"
             >
-              {'> _'}
             </span>
             <span className="font-display text-xl font-bold text-primary sm:text-3xl lg:text-4xl">
               {typedRole}
