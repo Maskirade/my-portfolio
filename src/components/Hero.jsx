@@ -103,7 +103,7 @@ function Cursor() {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 export default function Hero() {
-  const typedRole = useTypingEffect(profile.roles);
+  const typedRole = useTypingEffect(profile.roles ?? ["Web Developer", "Mobile App Developer", "AI/ML Developer"]);
 
   return (
     <section
